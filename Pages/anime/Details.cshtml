@@ -1,0 +1,67 @@
+﻿@page
+@model MiniAnimeDB.Pages.anime.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Anime</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Anime.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Anime.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Anime.Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Anime.Type)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Anime.Eps)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Anime.Eps)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Anime.Rating)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Anime.Rating)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Anime.Country)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Anime.Country)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Anime.Group)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Anime.Group)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Anime.Aired)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Anime.Aired)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Anime.Ended)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Anime.Ended)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Anime.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

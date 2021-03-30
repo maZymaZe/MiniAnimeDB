@@ -1,0 +1,78 @@
+﻿@page
+@model MiniAnimeDB.Pages.anime.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Anime</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Anime[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anime[0].Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anime[0].Eps)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anime[0].Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anime[0].Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anime[0].Group)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anime[0].Aired)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anime[0].Ended)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Anime) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Eps)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aired)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ended)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

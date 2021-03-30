@@ -1,0 +1,69 @@
+﻿@page
+@model MiniAnimeDB.Pages.anime.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Anime</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Anime.Title" class="control-label"></label>
+                <input asp-for="Anime.Title" class="form-control" />
+                <span asp-validation-for="Anime.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anime.Type" class="control-label"></label>
+                <input asp-for="Anime.Type" class="form-control" />
+                <span asp-validation-for="Anime.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anime.Eps" class="control-label"></label>
+                <input asp-for="Anime.Eps" class="form-control" />
+                <span asp-validation-for="Anime.Eps" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anime.Rating" class="control-label"></label>
+                <input asp-for="Anime.Rating" class="form-control" />
+                <span asp-validation-for="Anime.Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anime.Country" class="control-label"></label>
+                <input asp-for="Anime.Country" class="form-control" />
+                <span asp-validation-for="Anime.Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anime.Group" class="control-label"></label>
+                <input asp-for="Anime.Group" class="form-control" />
+                <span asp-validation-for="Anime.Group" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anime.Aired" class="control-label"></label>
+                <input asp-for="Anime.Aired" class="form-control" />
+                <span asp-validation-for="Anime.Aired" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anime.Ended" class="control-label"></label>
+                <input asp-for="Anime.Ended" class="form-control" />
+                <span asp-validation-for="Anime.Ended" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

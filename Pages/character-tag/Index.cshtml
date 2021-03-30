@@ -1,0 +1,42 @@
+﻿@page
+@model MiniAnimeDB.Pages.character_tag.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CharacterTagC[0].Character)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CharacterTagC[0].TagC)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CharacterTagC) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Character.CharacterID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TagC.TagCID)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.CharacterTagCID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.CharacterTagCID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.CharacterTagCID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
