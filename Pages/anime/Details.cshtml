@@ -59,6 +59,92 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Anime.Ended)
         </dd>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Main Staff</th>
+                    <th>Position</th>
+                </tr>
+                @foreach (var item in Model.Anime.Staffs)
+                {
+                    if (item.Position != "cast")
+                    {
+                        <tr>
+                            <td>
+                                @{
+                                    var LinkToPerson = "/person/Details?id=" + item.PersonID.ToString();
+                                }
+                                <a class="col-sm-10" href=@LinkToPerson>
+                                    @Html.DisplayFor(modelItem => item.Person.Name)
+                                </a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Position)
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </dd>
+
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Character</th>
+                    <th>Cast by</th>
+                </tr>
+                @foreach (var item in Model.Anime2.Roles)
+                {
+                    <tr>
+                        <td>
+
+                            @{
+                                var LinkToCharacter = "/character/Details?id=" + item.CharacterID.ToString();
+                            }
+
+                            <a class="col-sm-10" href=@LinkToCharacter>
+                                @Html.DisplayFor(modelItem => item.Character.Name)
+                            </a>
+                        </td>
+                        <td>
+                            @{
+                                foreach (var vocals in item.Character.Casts)
+                                {
+                                    var LinkToPersonCast = "/person/Details?id=" + vocals.PersonID.ToString();
+                                    <a class="col-sm-10" href=@LinkToPersonCast>
+                                        @Html.DisplayFor(modelItem => vocals.Person.Name)
+                                    </a>
+                                }
+                            }
+                        </td>
+                    </tr>
+
+                }
+            </table>
+        </dd>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Tags</th>
+                    
+                </tr>
+                <tr>
+                    <td>
+
+                        @{
+                            foreach (var tgs in Model.Anime3.WithTags) {                               
+                                var LinkToTagA = "/tagA/Details?id=" + tgs.TagAID.ToString();
+                                <a class="col-sm-10" href=@LinkToTagA>
+                                    @Html.DisplayFor(modelItem => tgs.TagA.Tag)
+                                </a> 
+                            }
+                        }
+
+
+                    </td>
+                </tr>
+            </table>
+        </dd>
     </dl>
 </div>
 <div>

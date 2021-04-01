@@ -5,32 +5,60 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>CharacterTag</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find Tags:
+            <input type="text" name="SearchingString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TagC[0].Tag)
+                @Html.DisplayNameFor(model => model.TagCs[0].Tag)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.TagC) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tag)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.TagCID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.TagCID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.TagCID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.TagCs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tag)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.TagCID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.TagCID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.TagCID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@{
+    var prevDisabled = !Model.TagCs.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.TagCs.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./Index"
+   asp-route-pageIndex="@(Model.TagCs.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-page="./Index"
+   asp-route-pageIndex="@(Model.TagCs.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>

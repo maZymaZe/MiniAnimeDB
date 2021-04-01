@@ -23,6 +23,73 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Person.Country)
         </dd>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Working for Anime</th>
+                    <th>Position</th>
+                </tr>
+                @foreach (var item in Model.Person.Staffs)
+                {
+                    <tr>
+                        <td>
+
+                            @{
+                                var LinkToAnime = "/anime/Details?id=" + item.AnimeID.ToString();
+                            }
+
+                            <a class="col-sm-10" href=@LinkToAnime>
+                                @Html.DisplayFor(modelItem => item.Anime.Title)
+                            </a>
+                        </td>
+                        <td>
+                            @{
+                                foreach (var jobs in item.Person.Staffs)
+                                {
+                                    @Html.DisplayFor(modelItem => jobs.Position)
+                                }
+                            }
+                        </td>
+                    </tr>
+
+                }
+            </table>
+        </dd>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Dubbing for Character</th>
+                    <th>In Anime</th>
+                </tr>
+                @foreach (var item in Model.Person2.Casts)
+                {
+                    <tr>
+                        <td>
+
+                            @{
+                                var LinkToCharacter = "/character/Details?id=" + item.CharacterID.ToString();
+                            }
+
+                            <a class="col-sm-10" href=@LinkToCharacter>
+                                @Html.DisplayFor(modelItem => item.Character.Name)
+                            </a>
+                        </td>
+                        <td>
+                            @{
+                                foreach (var ani in item.Character.Roles)
+                                {
+                                    var LinkToAnime = "/anime/Details?id=" + ani.AnimeID.ToString();
+                                    <a class="col-sm-10" href=@LinkToAnime>
+                                        @Html.DisplayFor(modelItem => ani.Anime.Title)
+                                    </a>
+                                }
+                            }
+                        </td>
+                    </tr>
+
+                }
+            </table>
+        </dd>
     </dl>
 </div>
 <div>

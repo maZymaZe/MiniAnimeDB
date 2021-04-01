@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>AnimeTag</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -26,10 +26,10 @@
 @foreach (var item in Model.AnimeTagA) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Anime.ID)
+                @Html.DisplayFor(modelItem => item.Anime.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TagA.TagAID)
+                @Html.DisplayFor(modelItem => item.TagA.Tag)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.AnimeTagAID">Edit</a> |

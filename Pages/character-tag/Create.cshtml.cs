@@ -21,8 +21,8 @@ namespace MiniAnimeDB.Pages.character_tag
 
         public IActionResult OnGet()
         {
-        ViewData["CharacterID"] = new SelectList(_context.Character, "CharacterID", "CharacterID");
-        ViewData["TagCID"] = new SelectList(_context.TagC, "TagCID", "TagCID");
+        ViewData["CharacterID"] = new SelectList(_context.Character, "CharacterID", "Name");
+        ViewData["TagCID"] = new SelectList(_context.TagC, "TagCID", "Tag");
             return Page();
         }
 

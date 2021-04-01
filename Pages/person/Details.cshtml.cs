@@ -20,7 +20,7 @@ namespace MiniAnimeDB.Pages.person
         }
 
         public Person Person { get; set; }
-
+        public Person Person2 { get; set; }
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -28,9 +28,13 @@ namespace MiniAnimeDB.Pages.person
                 return NotFound();
             }
 
-            Person = await _context.Person.FirstOrDefaultAsync(m => m.PersonID == id);
-
+            Person = await _context.Person.Include(s=>s.Staffs).ThenInclude(an=>an.Anime).FirstOrDefaultAsync(m => m.PersonID == id);
+            Person2 = await _context.Person.Include(s => s.Casts).ThenInclude(ch=>ch.Character).ThenInclude(rl=>rl.Roles).ThenInclude(an=>an.Anime).FirstOrDefaultAsync(m => m.PersonID == id);
             if (Person == null)
+            {
+                return NotFound();
+            }
+            if (Person2 == null)
             {
                 return NotFound();
             }

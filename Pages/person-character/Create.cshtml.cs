@@ -21,8 +21,8 @@ namespace MiniAnimeDB.Pages.person_character
 
         public IActionResult OnGet()
         {
-        ViewData["CharacterID"] = new SelectList(_context.Character, "CharacterID", "CharacterID");
-        ViewData["PersonID"] = new SelectList(_context.Person, "PersonID", "PersonID");
+        ViewData["CharacterID"] = new SelectList(_context.Character, "CharacterID", "Name");
+        ViewData["PersonID"] = new SelectList(_context.Person, "PersonID", "Name");
             return Page();
         }
 

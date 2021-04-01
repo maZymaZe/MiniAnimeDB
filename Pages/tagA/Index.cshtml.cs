@@ -19,11 +19,29 @@ namespace MiniAnimeDB.Pages.tagA
             _context = context;
         }
 
-        public IList<TagA> TagA { get;set; }
+        //public IList<TagA> TagA { get;set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
+        public PaginatedList<TagA> TagAs { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string currentFilter, string searchingString, int? pageIndex)
         {
-            TagA = await _context.TagA.ToListAsync();
+            if (searchingString != null)
+            {
+                pageIndex = 1;
+            }
+            else
+            {
+                searchingString = currentFilter;
+            }
+            CurrentFilter = searchingString;
+            IQueryable<TagA> TagAIQ = from s in _context.TagA select s;
+            if (!String.IsNullOrEmpty(searchingString))
+            {
+                TagAIQ = TagAIQ.Where(s => s.Tag.ToUpper().Contains(searchingString.ToUpper()));
+            }
+            int pageSize = 10;
+            TagAs = await PaginatedList<TagA>.CreateAsync(TagAIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace MiniAnimeDB.Pages.tagC
                 return NotFound();
             }
 
-            TagC = await _context.TagC.FirstOrDefaultAsync(m => m.TagCID == id);
+            TagC = await _context.TagC.Include(s=>s.WithTags).ThenInclude(ct=>ct.Character).ThenInclude(rs=>rs.Roles).ThenInclude(am=>am.Anime).AsNoTracking().FirstOrDefaultAsync(m => m.TagCID == id);
 
             if (TagC == null)
             {

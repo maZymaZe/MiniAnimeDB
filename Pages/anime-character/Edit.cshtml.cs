@@ -38,8 +38,8 @@ namespace MiniAnimeDB.Pages.anime_character
             {
                 return NotFound();
             }
-           ViewData["AnimeID"] = new SelectList(_context.Anime, "ID", "ID");
-           ViewData["CharacterID"] = new SelectList(_context.Character, "CharacterID", "CharacterID");
+           ViewData["AnimeID"] = new SelectList(_context.Anime, "ID", "Title");
+           ViewData["CharacterID"] = new SelectList(_context.Character, "CharacterID", "Name");
             return Page();
         }
 

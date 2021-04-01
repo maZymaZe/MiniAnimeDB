@@ -19,11 +19,29 @@ namespace MiniAnimeDB.Pages.person
             _context = context;
         }
 
-        public IList<Person> Person { get;set; }
+        //public IList<Person> Person { get;set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
+        public PaginatedList<Person> Persons { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string currentFilter, string searchingString, int? pageIndex)
         {
-            Person = await _context.Person.ToListAsync();
+            if (searchingString != null)
+            {
+                pageIndex = 1;
+            }
+            else
+            {
+                searchingString = currentFilter;
+            }
+            CurrentFilter = searchingString;
+            IQueryable<Person> PersonIQ = from s in _context.Person select s;
+            if (!String.IsNullOrEmpty(searchingString))
+            {
+                PersonIQ = PersonIQ.Where(s => s.Name.ToUpper().Contains(searchingString.ToUpper()));
+            }
+            int pageSize = 10;
+            Persons = await PaginatedList<Person>.CreateAsync(PersonIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
     }
 }

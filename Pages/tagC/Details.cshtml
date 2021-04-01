@@ -8,7 +8,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>TagC</h4>
+    <h4>CharacterTag</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -16,6 +16,41 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TagC.Tag)
+        </dd>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Example Character</th>
+                    <th>From Anime</th>
+                </tr>
+                @foreach (var item in Model.TagC.WithTags)
+                {
+                    <tr>
+                        <td>
+
+                            @{
+                                var LinkToCharacter = "/character/Details?id=" + item.CharacterID.ToString();
+                            }
+
+                            <a class="col-sm-10" href=@LinkToCharacter>
+                                @Html.DisplayFor(modelItem => item.Character.Name)
+                            </a>
+                        </td>
+                        <td>
+                            @{
+                                foreach (var ani in item.Character.Roles)
+                                {
+                                    var LinkToAnime = "/anime/Details?id=" +ani.AnimeID.ToString();
+                                    <a class="col-sm-10" href=@LinkToAnime>
+                                        @Html.DisplayFor(modelItem => ani.Anime.Title)
+                                    </a>
+                                }
+                            }
+                        </td>
+                    </tr>
+
+                }
+            </table>
         </dd>
     </dl>
 </div>
