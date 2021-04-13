@@ -28,7 +28,7 @@ namespace MiniAnimeDB.Pages.character
                 return NotFound();
             }
 
-            Character = await _context.Character.FirstOrDefaultAsync(m => m.CharacterID == id);
+            Character = await _context.Character.Include(s=>s.Roles).ThenInclude(an=>an.Anime).Include(s=>s.Casts).ThenInclude(ps=>ps.Person).Include(tc=>tc.WithTags).ThenInclude(tt=>tt.TagC).AsNoTracking().FirstOrDefaultAsync(m => m.CharacterID == id);
 
             if (Character == null)
             {

@@ -9,17 +9,58 @@
 
 <h4>AnimeTag</h4>
 <hr />
+<form method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find AnimeID:
+            <input type="text" name="SearchingStringAni" value="@Model.CurrentFilterAni" list="andl" />
+            <datalist id="andl">
+                @if (ViewBag.Anis != null)
+                {
+                    @foreach (var an in ViewBag.Anis)
+                    {
+                        <option value=@an.Title></option>
+                    }
+                }
+            </datalist>
+            <!--<input type="submit" value="Search" class="btn btn-primary" />-->
+            The Anime ID of @Model.CurrentFilterAni is @Model.AniPub .
+        </p>
+        <p>
+            Find TagID:
+            <input type="text" name="SearchingStringTag" value="@Model.CurrentFilterTag" list="tgdl" />
+            <datalist id="tgdl">
+                @if (ViewBag.TagAs != null)
+                {
+                    @foreach (var ta in ViewBag.TagAs)
+                    {
+                        <option value=@ta.Tag></option>
+                    }
+                }
+            </datalist>
+           
+            The Tag ID of @Model.CurrentFilterTag is @Model.TagPub .
+        </p>
+        <p>
+            <input type="submit" value="Search" class="btn btn-primary"/>
+        </p>
+    </div>
+</form>
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="AnimeTagA.AnimeID" class="control-label"></label>
-                <select asp-for="AnimeTagA.AnimeID" class ="form-control" asp-items="ViewBag.AnimeID"></select>
+                <!--  <select asp-for="AnimeTagA.AnimeID" class ="form-control" asp-items="ViewBag.AnimeID"></select>-->
+                <input asp-for="AnimeTagA.AnimeID" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="AnimeTagA.TagAID" class="control-label"></label>
-                <select asp-for="AnimeTagA.TagAID" class ="form-control" asp-items="ViewBag.TagAID"></select>
+                <input asp-for="AnimeTagA.TagAID" class="form-control"/>
+                <!--
+    <select asp-for="AnimeTagA.TagAID" class="form-control" asp-items="ViewBag.TagAID"></select> 
+                -->
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -31,6 +72,7 @@
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

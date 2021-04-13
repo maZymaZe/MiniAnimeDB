@@ -29,6 +29,72 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Character.Sex)
         </dd>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>In Anime</th>
+                </tr>
+                @foreach (var item in Model.Character.Roles)
+                {
+                    <tr>
+                        <td>
+
+                            @{
+                                var LinkToAnime = "/anime/Details?id=" + item.AnimeID.ToString();
+                            }
+
+                            <a class="col-sm-10" href=@LinkToAnime>
+                                @Html.DisplayFor(modelItem => item.Anime.Title)
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Dubbed by</th>
+                </tr>
+                @foreach (var item in Model.Character.Casts)
+                {
+                    <tr>
+                        <td>
+
+                            @{
+                                var LinkToPerson = "/person/Details?id=" + item.PersonID.ToString();
+                            }
+
+                            <a class="col-sm-10" href=@LinkToPerson>
+                                @Html.DisplayFor(modelItem => item.Person.Name)
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>With Tags</th>
+                </tr>
+                @foreach (var item in Model.Character.WithTags)
+                {
+                    <tr>
+                        <td>
+
+                            @{
+                                var LinkToTag = "/tagC/Details?id=" + item.TagCID.ToString();
+                            }
+
+                            <a class="col-sm-10" href=@LinkToTag>
+                                @Html.DisplayFor(modelItem => item.TagC.Tag)
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
     </dl>
 </div>
 <div>

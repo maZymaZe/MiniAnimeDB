@@ -10,39 +10,67 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find Tags:
+            <input type="text" name="SearchingString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Character[0].Name)
+                @Html.DisplayNameFor(model => model.Characters[0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Character[0].Age)
+                @Html.DisplayNameFor(model => model.Characters[0].Age)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Character[0].Sex)
+                @Html.DisplayNameFor(model => model.Characters[0].Sex)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Character) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sex)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.CharacterID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.CharacterID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.CharacterID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Characters)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sex)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.CharacterID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.CharacterID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.CharacterID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@{
+    var prevDisabled = !Model.Characters.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Characters.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./Index"
+   asp-route-pageIndex="@(Model.Characters.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-page="./Index"
+   asp-route-pageIndex="@(Model.Characters.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>
