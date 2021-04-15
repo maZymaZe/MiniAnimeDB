@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniAnimeDB.Data;
 
 namespace MiniAnimeDB.Migrations
 {
     [DbContext(typeof(MiniAnimeDBContext))]
-    partial class MiniAnimeDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210415011427_TwelfthCreae")]
+    partial class TwelfthCreae
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,22 +28,22 @@ namespace MiniAnimeDB.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("Aired")
+                    b.Property<DateTime>("Aired")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Ended")
+                    b.Property<DateTime>("Ended")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Eps")
+                    b.Property<int>("Eps")
                         .HasColumnType("int");
 
                     b.Property<string>("Group")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Rating")
+                    b.Property<double>("Rating")
                         .HasColumnType("float");
 
                     b.Property<string>("Title")

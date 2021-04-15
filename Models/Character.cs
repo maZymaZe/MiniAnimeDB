@@ -9,7 +9,7 @@ namespace MiniAnimeDB.Models
     {
         public int CharacterID { get; set; }
         public string Name { get; set; }
-        public int Age { get; set; }
+        public int? Age { get; set; }
         public string Sex { get; set; }
 
         public ICollection<AnimeCharacter> Roles { get; set; }

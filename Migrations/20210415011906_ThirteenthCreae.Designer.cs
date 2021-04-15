@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniAnimeDB.Data;
 
 namespace MiniAnimeDB.Migrations
 {
     [DbContext(typeof(MiniAnimeDBContext))]
-    partial class MiniAnimeDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210415011906_ThirteenthCreae")]
+    partial class ThirteenthCreae
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
