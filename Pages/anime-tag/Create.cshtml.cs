@@ -19,20 +19,21 @@ namespace MiniAnimeDB.Pages.anime_tag
             _context = context;
         }
 
-        public void OnGet(string SearchingStringTag,string SearchingStringAni)
+        public IActionResult OnGet(string SearchingStringTag, string SearchingStringAni)
         {
             //ViewData["AnimeID"] = new SelectList(_context.Anime, "ID", "Title");
             //ViewData["TagAID"] = new SelectList(_context.TagA, "TagAID", "Tag");
             ViewData["Anis"] = new List<Anime>(_context.Anime);
             ViewData["TagAs"] = new List<TagA>(_context.TagA);
             TagPub = "???";
-            if (!String.IsNullOrEmpty(SearchingStringTag)) {
+            if (!String.IsNullOrEmpty(SearchingStringTag))
+            {
                 CurrentFilterTag = SearchingStringTag;
                 foreach (var ta in _context.TagA)
                 {
                     if (ta.Tag.ToUpper().Contains(SearchingStringTag.ToUpper()))
                     {
-                        CurrentFilterTag = ta.Tag;                   
+                        CurrentFilterTag = ta.Tag;
                         TagPub = ta.TagAID.ToString();
                         break;
                     }
@@ -51,8 +52,9 @@ namespace MiniAnimeDB.Pages.anime_tag
                         break;
                     }
                 }
-            }
 
+            }
+            return Page();
         }
 
         [BindProperty]
@@ -91,10 +93,10 @@ namespace MiniAnimeDB.Pages.anime_tag
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid||!CheckAniVaild()||!CheckRepeat()||!CheckTagValid())
+            if (!ModelState.IsValid || !CheckAniVaild() || !CheckRepeat() || !CheckTagValid())
             {
                 return Page();
-            }           
+            }
             _context.AnimeTagA.Add(AnimeTagA);
             await _context.SaveChangesAsync();
 

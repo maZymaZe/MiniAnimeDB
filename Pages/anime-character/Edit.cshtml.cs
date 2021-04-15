@@ -22,14 +22,43 @@ namespace MiniAnimeDB.Pages.anime_character
 
         [BindProperty]
         public AnimeCharacter AnimeCharacter { get; set; }
+        public string CurrentFilterCha { get; set; }
+        public string ChaPub { get; set; }
+        public string CurrentFilterAni { get; set; }
+        public string AniPub { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public bool CheckRepeat()
+        {
+            foreach (var ac in _context.AnimeCharacter.AsNoTracking())
+            {
+                if (ac.AnimeID == AnimeCharacter.AnimeID && ac.CharacterID == AnimeCharacter.CharacterID) return false;
+            }
+            return true;
+        }
+        public bool CheckAniVaild()
+        {
+            foreach (var an in _context.Anime.AsNoTracking())
+            {
+                if (an.ID == AnimeCharacter.AnimeID) return true;
+            }
+            return false;
+        }
+        public bool CheckChaValid()
+        {
+            foreach (var ch in _context.Character.AsNoTracking())
+            {
+                if (ch.CharacterID == AnimeCharacter.CharacterID) return true;
+            }
+            return false;
+        }
+        public int bid = 0;
+        public async Task<IActionResult> OnGetAsync(int? id, string SearchingStringCha, string SearchingStringAni)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
+            bid = Convert.ToInt32(id);
             AnimeCharacter = await _context.AnimeCharacter
                 .Include(a => a.Anime)
                 .Include(a => a.Character).FirstOrDefaultAsync(m => m.AnimeCharacterID == id);
@@ -38,8 +67,39 @@ namespace MiniAnimeDB.Pages.anime_character
             {
                 return NotFound();
             }
-           ViewData["AnimeID"] = new SelectList(_context.Anime, "ID", "Title");
-           ViewData["CharacterID"] = new SelectList(_context.Character, "CharacterID", "Name");
+            //ViewData["AnimeID"] = new SelectList(_context.Anime, "ID", "Title");
+            //ViewData["CharacterID"] = new SelectList(_context.Character, "CharacterID", "Name");
+            ViewData["Anis"] = new List<Anime>(_context.Anime);
+            ViewData["Chas"] = new List<Character>(_context.Character);
+            ChaPub = "???";
+            if (!String.IsNullOrEmpty(SearchingStringCha))
+            {
+                CurrentFilterCha = SearchingStringCha;
+                foreach (var ch in _context.Character)
+                {
+                    if (ch.Name.ToUpper().Contains(SearchingStringCha.ToUpper()))
+                    {
+                        CurrentFilterCha = ch.Name;
+                        ChaPub = ch.CharacterID.ToString();
+                        break;
+                    }
+                }
+            }
+            AniPub = "???";
+            if (!String.IsNullOrEmpty(SearchingStringAni))
+            {
+                CurrentFilterAni = SearchingStringAni;
+                foreach (var an in _context.Anime)
+                {
+                    if (an.Title.ToUpper().Contains(SearchingStringAni.ToUpper()))
+                    {
+                        CurrentFilterAni = an.Title;
+                        AniPub = an.ID.ToString();
+                        break;
+                    }
+                }
+
+            }
             return Page();
         }
 
@@ -47,7 +107,7 @@ namespace MiniAnimeDB.Pages.anime_character
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || !CheckAniVaild() || !CheckRepeat() || !CheckChaValid())
             {
                 return Page();
             }

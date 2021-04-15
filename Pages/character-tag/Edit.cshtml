@@ -9,6 +9,44 @@
 
 <h4>CharacterTagC</h4>
 <hr />
+<form method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find CharacterID:
+            <input type="hidden" name="id" value="@Model.bid" />
+            <input type="text" name="SearchingStringCha" value="@Model.CurrentFilterCha" list="chdl" />
+            <datalist id="chdl">
+                @if (ViewBag.Chas != null)
+                {
+                    @foreach (var ch in ViewBag.Chas)
+                    {
+                        <option value=@ch.Name></option>
+                    }
+                }
+            </datalist>
+            <!--<input type="submit" value="Search" class="btn btn-primary" />-->
+            The Character ID of @Model.CurrentFilterCha is @Model.ChaPub .
+        </p>
+        <p>
+            Find TagID:
+            <input type="text" name="SearchingStringTag" value="@Model.CurrentFilterTag" list="tgdl" />
+            <datalist id="tgdl">
+                @if (ViewBag.Tags != null)
+                {
+                    @foreach (var tg in ViewBag.Tags)
+                    {
+                        <option value=@tg.Tag></option>
+                    }
+                }
+            </datalist>
+
+            The Tag ID of @Model.CurrentFilterTag is @Model.TagPub .
+        </p>
+        <p>
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </p>
+    </div>
+</form>
 <div class="row">
     <div class="col-md-4">
         <form method="post">
@@ -16,13 +54,15 @@
             <input type="hidden" asp-for="CharacterTagC.CharacterTagCID" />
             <div class="form-group">
                 <label asp-for="CharacterTagC.CharacterID" class="control-label"></label>
-                <select asp-for="CharacterTagC.CharacterID" class="form-control" asp-items="ViewBag.CharacterID"></select>
-                <span asp-validation-for="CharacterTagC.CharacterID" class="text-danger"></span>
+                <input asp-for="CharacterTagC.CharacterID" class="form-control" />
+                <!--<select asp-for="CharacterTagC.CharacterID" class="form-control" asp-items="ViewBag.CharacterID"></select>
+                <span asp-validation-for="CharacterTagC.CharacterID" class="text-danger"></span>-->
             </div>
             <div class="form-group">
                 <label asp-for="CharacterTagC.TagCID" class="control-label"></label>
-                <select asp-for="CharacterTagC.TagCID" class="form-control" asp-items="ViewBag.TagCID"></select>
-                <span asp-validation-for="CharacterTagC.TagCID" class="text-danger"></span>
+                <input asp-for="CharacterTagC.TagCID" class="form-control" />
+                <!--<select asp-for="CharacterTagC.TagCID" class="form-control" asp-items="ViewBag.TagCID"></select>
+                <span asp-validation-for="CharacterTagC.TagCID" class="text-danger"></span>-->
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

@@ -7,6 +7,9 @@
     "mssql2": {
       "type": "mssql.local",
       "connectionId": "MiniAnimeDBContext"
+    },
+    "secrets1": {
+      "type": "secrets.user"
     }
   }
 }

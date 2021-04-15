@@ -13,27 +13,87 @@ namespace MiniAnimeDB.Pages.anime_character
     public class CreateModel : PageModel
     {
         private readonly MiniAnimeDB.Data.MiniAnimeDBContext _context;
+       
 
+        public bool CheckRepeat()
+        {
+            foreach (var ac in _context.AnimeCharacter)
+            {
+                if (ac.AnimeID == AnimeCharacter.AnimeID && ac.CharacterID == AnimeCharacter.CharacterID) return false;
+            }
+            return true;
+        }
+        public bool CheckAniVaild()
+        {
+            foreach (var an in _context.Anime)
+            {
+                if (an.ID == AnimeCharacter.AnimeID) return true;
+            }
+            return false;
+        }
+        public bool CheckChaValid()
+        {
+            foreach (var ch in _context.Character)
+            {
+                if (ch.CharacterID == AnimeCharacter.CharacterID) return true;
+            }
+            return false;
+        }
         public CreateModel(MiniAnimeDB.Data.MiniAnimeDBContext context)
         {
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(string SearchingStringCha, string SearchingStringAni)
         {
-        ViewData["AnimeID"] = new SelectList(_context.Anime, "ID", "Title");
-        ViewData["CharacterID"] = new SelectList(_context.Character, "CharacterID", "Name");
+            //ViewData["AnimeID"] = new SelectList(_context.Anime, "ID", "Title");
+            //ViewData["CharacterID"] = new SelectList(_context.Character, "CharacterID", "Name");
+            ViewData["Anis"] = new List<Anime>(_context.Anime);
+            ViewData["Chas"] = new List<Character>(_context.Character);
+            ChaPub = "???";
+            if (!String.IsNullOrEmpty(SearchingStringCha))
+            {
+                CurrentFilterCha = SearchingStringCha;
+                foreach (var ch in _context.Character)
+                {
+                    if (ch.Name.ToUpper().Contains(SearchingStringCha.ToUpper()))
+                    {
+                        CurrentFilterCha = ch.Name;
+                        ChaPub = ch.CharacterID.ToString();
+                        break;
+                    }
+                }
+            }
+            AniPub = "???";
+            if (!String.IsNullOrEmpty(SearchingStringAni))
+            {
+                CurrentFilterAni = SearchingStringAni;
+                foreach (var an in _context.Anime)
+                {
+                    if (an.Title.ToUpper().Contains(SearchingStringAni.ToUpper()))
+                    {
+                        CurrentFilterAni = an.Title;
+                        AniPub = an.ID.ToString();
+                        break;
+                    }
+                }
+
+            }
             return Page();
         }
 
         [BindProperty]
         public AnimeCharacter AnimeCharacter { get; set; }
+        public string CurrentFilterCha { get; set; }
+        public string ChaPub { get; set; }
+        public string CurrentFilterAni { get; set; }
+        public string AniPub { get; set; }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || !CheckAniVaild() || !CheckRepeat() || !CheckChaValid())
             {
                 return Page();
             }

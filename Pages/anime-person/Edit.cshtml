@@ -9,6 +9,44 @@
 
 <h4>AnimePerson</h4>
 <hr />
+<form method="get">
+
+    <div class="form-actions no-color">
+        <p>
+            Find AnimeID：
+            <input type="hidden" name="id" value="@Model.bid" />
+            <input type="text" name="SearchingStringAni" value="@Model.CurrentFilterAni" list="andl" />
+            <datalist id="andl">
+                @if (ViewBag.Anis != null)
+                {
+                    @foreach (var an in ViewBag.Anis)
+                    {
+                        <option value=@an.Title></option>
+                    }
+                }
+            </datalist>
+            The Anime ID of @Model.CurrentFilterAni is @Model.AniPub .
+        </p>
+        <p>
+            Find PersonID:
+            <input type="text" name="SearchingStringPerson" value="@Model.CurrentFilterPerson" list="Persondl" />
+            <datalist id="Persondl">
+                @if (ViewBag.Persons != null)
+                {
+                    @foreach (var ps in ViewBag.Persons)
+                    {
+                        <option value=@ps.Name></option>
+                    }
+                }
+            </datalist>
+
+            The Person ID of @Model.CurrentFilterPerson is @Model.PersonPub .
+        </p>
+        <p>
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </p>
+    </div>
+</form>
 <div class="row">
     <div class="col-md-4">
         <form method="post">
@@ -16,13 +54,17 @@
             <input type="hidden" asp-for="AnimePerson.AnimePersonID" />
             <div class="form-group">
                 <label asp-for="AnimePerson.AnimeID" class="control-label"></label>
+                <input asp-for="AnimePerson.AnimeID" class="form-control" />
+                <!--
                 <select asp-for="AnimePerson.AnimeID" class="form-control" asp-items="ViewBag.AnimeID"></select>
-                <span asp-validation-for="AnimePerson.AnimeID" class="text-danger"></span>
+                <span asp-validation-for="AnimePerson.AnimeID" class="text-danger"></span>-->
             </div>
             <div class="form-group">
                 <label asp-for="AnimePerson.PersonID" class="control-label"></label>
+                <input asp-for="AnimePerson.PersonID" class="form-control" />
+                <!--
                 <select asp-for="AnimePerson.PersonID" class="form-control" asp-items="ViewBag.PersonID"></select>
-                <span asp-validation-for="AnimePerson.PersonID" class="text-danger"></span>
+                <span asp-validation-for="AnimePerson.PersonID" class="text-danger"></span>-->
             </div>
             <div class="form-group">
                 <label asp-for="AnimePerson.Position" class="control-label"></label>

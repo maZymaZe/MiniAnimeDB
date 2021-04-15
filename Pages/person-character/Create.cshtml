@@ -9,17 +9,58 @@
 
 <h4>Casts</h4>
 <hr />
+<form method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find PersonID:
+            <input type="text" name="SearchingStringPer" value="@Model.CurrentFilterPer" list="psdl" />
+            <datalist id="psdl">
+                @if (ViewBag.Pers != null)
+                {
+                    @foreach (var ps in ViewBag.Pers)
+                    {
+                        <option value=@ps.Name></option>
+                    }
+                }
+            </datalist>
+            <!--<input type="submit" value="Search" class="btn btn-primary" />-->
+            The Person ID of @Model.CurrentFilterPer is @Model.PerPub .
+        </p>
+        <p>
+            Find CharacterID:
+            <input type="text" name="SearchingStringCha" value="@Model.CurrentFilterCha" list="chdl" />
+            <datalist id="chdl">
+                @if (ViewBag.Chas != null)
+                {
+                    @foreach (var ch in ViewBag.Chas)
+                    {
+                        <option value=@ch.Name></option>
+                    }
+                }
+            </datalist>
+
+            The Character ID of @Model.CurrentFilterCha is @Model.ChaPub .
+        </p>
+        <p>
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </p>
+    </div>
+</form>
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="PersonCharacter.CharacterID" class="control-label"></label>
-                <select asp-for="PersonCharacter.CharacterID" class ="form-control" asp-items="ViewBag.CharacterID"></select>
+                <input asp-for="PersonCharacter.CharacterID" class="form-control" />
+                <!--<select asp-for="PersonCharacter.CharacterID" class ="form-control" asp-items="ViewBag.CharacterID"></select>
+                -->
             </div>
             <div class="form-group">
                 <label asp-for="PersonCharacter.PersonID" class="control-label"></label>
-                <select asp-for="PersonCharacter.PersonID" class ="form-control" asp-items="ViewBag.PersonID"></select>
+                <input asp-for="PersonCharacter.PersonID" class="form-control" />
+                <!--  <select asp-for="PersonCharacter.PersonID" class ="form-control" asp-items="ViewBag.PersonID"></select>
+                -->
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

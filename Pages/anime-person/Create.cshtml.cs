@@ -19,21 +19,77 @@ namespace MiniAnimeDB.Pages.anime_person
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(string SearchingStringPerson, string SearchingStringAni)
         {
-        ViewData["AnimeID"] = new SelectList(_context.Anime, "ID", "Title");
-        ViewData["PersonID"] = new SelectList(_context.Person, "PersonID", "Name");
+            ViewData["Anis"] = new List<Anime>(_context.Anime);
+            ViewData["Persons"] = new List<Person>(_context.Person);
+            PersonPub = "???";
+            if (!String.IsNullOrEmpty(SearchingStringPerson))
+            {
+                CurrentFilterPerson = SearchingStringPerson;
+                foreach (var ps in _context.Person)
+                {
+                    if (ps.Name.ToUpper().Contains(SearchingStringPerson.ToUpper()))
+                    {
+                        CurrentFilterPerson = ps.Name;
+                        PersonPub = ps.PersonID.ToString();
+                        break;
+                    }
+                }
+            }
+            AniPub = "???";
+            if (!String.IsNullOrEmpty(SearchingStringAni))
+            {
+                CurrentFilterAni = SearchingStringAni;
+                foreach (var an in _context.Anime)
+                {
+                    if (an.Title.ToUpper().Contains(SearchingStringAni.ToUpper()))
+                    {
+                        CurrentFilterAni = an.Title;
+                        AniPub = an.ID.ToString();
+                        break;
+                    }
+                }
+            }
             return Page();
         }
 
         [BindProperty]
         public AnimePerson AnimePerson { get; set; }
+        public string CurrentFilterPerson { get; set; }
+        public string PersonPub { get; set; }
+        public string CurrentFilterAni { get; set; }
+        public string AniPub { get; set; }
 
+        public bool CheckRepeat()
+        {
+            foreach (var ap in _context.AnimePerson)
+            {
+                if (ap.AnimeID == AnimePerson.AnimeID && ap.PersonID == AnimePerson.PersonID) return false;
+            }
+            return true;
+        }
+        public bool CheckAniVaild()
+        {
+            foreach (var an in _context.Anime)
+            {
+                if (an.ID == AnimePerson.AnimeID) return true;
+            }
+            return false;
+        }
+        public bool CheckPersonValid()
+        {
+            foreach (var ps in _context.Person)
+            {
+                if (ps.PersonID==AnimePerson.PersonID) return true;
+            }
+            return false;
+        }
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || !CheckAniVaild() || !CheckRepeat() || !CheckPersonValid())
             {
                 return Page();
             }
