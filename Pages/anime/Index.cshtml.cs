@@ -60,7 +60,7 @@ namespace MiniAnimeDB.Pages.anime
                 EndSort = "ended_desc";
             }
             GroupSort = (sortOrder == "Group") ? "group_asc" : "Group";
-            TypeSort = (sortOrder == "Type") ? "Type_asc" : "Type";
+            TypeSort = (sortOrder == "Type") ? "type_asc" : "Type";
             if (sortOrder == "rating_desc")
             {
                 RatingSort = "rating_asc";

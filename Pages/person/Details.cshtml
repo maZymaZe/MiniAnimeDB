@@ -44,10 +44,9 @@
                         </td>
                         <td>
                             @{
-                                foreach (var jobs in item.Person.Staffs)
-                                {
-                                    @Html.DisplayFor(modelItem => jobs.Position)
-                                }
+
+                                @Html.DisplayFor(modelItem => item.Position)
+
                             }
                         </td>
                     </tr>
