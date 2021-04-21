@@ -11,7 +11,7 @@ using MiniAnimeDB.Models;
 
 namespace MiniAnimeDB.Pages.anime
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class DeleteModel : PageModel
     {
         private readonly MiniAnimeDB.Data.MiniAnimeDBContext _context;

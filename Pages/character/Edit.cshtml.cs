@@ -12,7 +12,7 @@ using MiniAnimeDB.Models;
 
 namespace MiniAnimeDB.Pages.character
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class EditModel : PageModel
     {
         private readonly MiniAnimeDB.Data.MiniAnimeDBContext _context;
