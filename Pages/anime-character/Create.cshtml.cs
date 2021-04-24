@@ -56,7 +56,19 @@ namespace MiniAnimeDB.Pages.anime_character
             if (!String.IsNullOrEmpty(SearchingStringCha))
             {
                 CurrentFilterCha = SearchingStringCha;
+                int flag = 0;
                 foreach (var ch in _context.Character)
+                {
+                    if (ch.Name.ToUpper().Equals(SearchingStringCha.ToUpper()))
+                    {
+                        CurrentFilterCha = ch.Name;
+                        ChaPub = ch.CharacterID.ToString();
+                        flag = 1;
+                        break;
+                    }
+                }
+
+                if(flag==0)foreach (var ch in _context.Character)
                 {
                     if (ch.Name.ToUpper().Contains(SearchingStringCha.ToUpper()))
                     {
@@ -70,7 +82,18 @@ namespace MiniAnimeDB.Pages.anime_character
             if (!String.IsNullOrEmpty(SearchingStringAni))
             {
                 CurrentFilterAni = SearchingStringAni;
+                int flag = 0;
                 foreach (var an in _context.Anime)
+                {
+                    if (an.Title.ToUpper().Equals(SearchingStringAni.ToUpper()))
+                    {
+                        CurrentFilterAni = an.Title;
+                        AniPub = an.ID.ToString();
+                        flag = 1;
+                        break;
+                    }
+                }
+                if(flag==0)foreach (var an in _context.Anime)
                 {
                     if (an.Title.ToUpper().Contains(SearchingStringAni.ToUpper()))
                     {

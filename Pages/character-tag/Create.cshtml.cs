@@ -31,30 +31,53 @@ namespace MiniAnimeDB.Pages.character_tag
             if (!String.IsNullOrEmpty(SearchingStringCha))
             {
                 CurrentFilterCha = SearchingStringCha;
+                int flag = 0;
                 foreach (var ch in _context.Character)
                 {
-                    if (ch.Name.ToUpper().Contains(SearchingStringCha.ToUpper()))
+                    if (ch.Name.ToUpper().Equals(SearchingStringCha.ToUpper()))
                     {
                         CurrentFilterCha = ch.Name;
                         ChaPub = ch.CharacterID.ToString();
+                        flag = 1;
                         break;
                     }
                 }
+                if (flag == 0)
+                    foreach (var ch in _context.Character)
+                    {
+                        if (ch.Name.ToUpper().Contains(SearchingStringCha.ToUpper()))
+                        {
+                            CurrentFilterCha = ch.Name;
+                            ChaPub = ch.CharacterID.ToString();
+                            break;
+                        }
+                    }
             }
             TagPub = "???";
             if (!String.IsNullOrEmpty(SearchingStringTag))
             {
                 CurrentFilterTag = SearchingStringTag;
+                int flag = 0;
                 foreach (var tg in _context.TagC)
                 {
-                    if (tg.Tag.ToUpper().Contains(SearchingStringTag.ToUpper()))
+                    if (tg.Tag.ToUpper().Equals(SearchingStringTag.ToUpper()))
                     {
                         CurrentFilterTag = tg.Tag;
                         TagPub = tg.TagCID.ToString();
+                        flag = 1;
                         break;
                     }
                 }
-
+                if (flag == 0)
+                    foreach (var tg in _context.TagC)
+                    {
+                        if (tg.Tag.ToUpper().Contains(SearchingStringTag.ToUpper()))
+                        {
+                            CurrentFilterTag = tg.Tag;
+                            TagPub = tg.TagCID.ToString();
+                            break;
+                        }
+                    }
             }
             return Page();
         }

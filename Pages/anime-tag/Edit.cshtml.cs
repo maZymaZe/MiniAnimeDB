@@ -79,15 +79,27 @@ namespace MiniAnimeDB.Pages.anime_tag
             if (!String.IsNullOrEmpty(SearchingStringTag))
             {
                 CurrentFilterTag = SearchingStringTag;
+                int flag = 0;
                 foreach (var ta in _context.TagA)
                 {
-                    if (ta.Tag.ToUpper().Contains(SearchingStringTag.ToUpper()))
+                    if (ta.Tag.ToUpper().Equals(SearchingStringTag.ToUpper()))
                     {
                         CurrentFilterTag = ta.Tag;
                         TagPub = ta.TagAID.ToString();
+                        flag = 1;
                         break;
                     }
                 }
+                if (flag == 0)
+                    foreach (var ta in _context.TagA)
+                    {
+                        if (ta.Tag.ToUpper().Contains(SearchingStringTag.ToUpper()))
+                        {
+                            CurrentFilterTag = ta.Tag;
+                            TagPub = ta.TagAID.ToString();
+                            break;
+                        }
+                    }
             }
 
             if (!String.IsNullOrEmpty(SearchingStringAni))

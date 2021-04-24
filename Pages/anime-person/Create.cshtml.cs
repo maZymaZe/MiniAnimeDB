@@ -29,29 +29,52 @@ namespace MiniAnimeDB.Pages.anime_person
             if (!String.IsNullOrEmpty(SearchingStringPerson))
             {
                 CurrentFilterPerson = SearchingStringPerson;
+                int flag = 0;
                 foreach (var ps in _context.Person)
                 {
-                    if (ps.Name.ToUpper().Contains(SearchingStringPerson.ToUpper()))
+                    if (ps.Name.ToUpper().Equals(SearchingStringPerson.ToUpper()))
                     {
                         CurrentFilterPerson = ps.Name;
                         PersonPub = ps.PersonID.ToString();
+                        flag = 1;
                         break;
                     }
                 }
+                if (flag == 0) foreach (var ps in _context.Person)
+                    {
+                        if (ps.Name.ToUpper().Contains(SearchingStringPerson.ToUpper()))
+                        {
+                            CurrentFilterPerson = ps.Name;
+                            PersonPub = ps.PersonID.ToString();
+                            break;
+                        }
+                    }
             }
             AniPub = "???";
             if (!String.IsNullOrEmpty(SearchingStringAni))
             {
                 CurrentFilterAni = SearchingStringAni;
+                int flag = 0;
                 foreach (var an in _context.Anime)
                 {
                     if (an.Title.ToUpper().Contains(SearchingStringAni.ToUpper()))
                     {
                         CurrentFilterAni = an.Title;
                         AniPub = an.ID.ToString();
+                        flag = 1;
                         break;
                     }
                 }
+                if (flag == 0)
+                    foreach (var an in _context.Anime)
+                    {
+                        if (an.Title.ToUpper().Contains(SearchingStringAni.ToUpper()))
+                        {
+                            CurrentFilterAni = an.Title;
+                            AniPub = an.ID.ToString();
+                            break;
+                        }
+                    }
             }
             return Page();
         }
@@ -67,7 +90,7 @@ namespace MiniAnimeDB.Pages.anime_person
         {
             foreach (var ap in _context.AnimePerson)
             {
-                if (ap.AnimeID == AnimePerson.AnimeID && ap.PersonID == AnimePerson.PersonID) return false;
+                if (ap.AnimeID == AnimePerson.AnimeID && ap.PersonID == AnimePerson.PersonID && ap.Position == AnimePerson.Position) return false;
             }
             return true;
         }
@@ -83,7 +106,7 @@ namespace MiniAnimeDB.Pages.anime_person
         {
             foreach (var ps in _context.Person)
             {
-                if (ps.PersonID==AnimePerson.PersonID) return true;
+                if (ps.PersonID == AnimePerson.PersonID) return true;
             }
             return false;
         }

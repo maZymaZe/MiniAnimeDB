@@ -31,7 +31,18 @@ namespace MiniAnimeDB.Pages.anime_tag
             if (!String.IsNullOrEmpty(SearchingStringTag))
             {
                 CurrentFilterTag = SearchingStringTag;
+                int flag = 0;
                 foreach (var ta in _context.TagA)
+                {
+                    if (ta.Tag.ToUpper().Equals(SearchingStringTag.ToUpper()))
+                    {
+                        CurrentFilterTag = ta.Tag;
+                        TagPub = ta.TagAID.ToString();
+                        flag = 1;
+                        break;
+                    }
+                }
+                if(flag==0)foreach (var ta in _context.TagA)
                 {
                     if (ta.Tag.ToUpper().Contains(SearchingStringTag.ToUpper()))
                     {
@@ -45,15 +56,27 @@ namespace MiniAnimeDB.Pages.anime_tag
             if (!String.IsNullOrEmpty(SearchingStringAni))
             {
                 CurrentFilterAni = SearchingStringAni;
+                int flag = 0;
                 foreach (var an in _context.Anime)
                 {
-                    if (an.Title.ToUpper().Contains(SearchingStringAni.ToUpper()))
+                    if (an.Title.ToUpper().Equals(SearchingStringAni.ToUpper()))
                     {
                         CurrentFilterAni = an.Title;
                         AniPub = an.ID.ToString();
+                        flag = 1;
                         break;
                     }
                 }
+                if (flag == 0)
+                    foreach (var an in _context.Anime)
+                    {
+                        if (an.Title.ToUpper().Contains(SearchingStringAni.ToUpper()))
+                        {
+                            CurrentFilterAni = an.Title;
+                            AniPub = an.ID.ToString();
+                            break;
+                        }
+                    }
 
             }
             return Page();

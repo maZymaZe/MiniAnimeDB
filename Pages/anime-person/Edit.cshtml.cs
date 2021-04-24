@@ -80,7 +80,18 @@ namespace MiniAnimeDB.Pages.anime_person
             if (!String.IsNullOrEmpty(SearchingStringPerson))
             {
                 CurrentFilterPerson = SearchingStringPerson;
+                int flag = 0;
                 foreach (var ps in _context.Person)
+                {
+                    if (ps.Name.ToUpper().Equals(SearchingStringPerson.ToUpper()))
+                    {
+                        CurrentFilterPerson = ps.Name;
+                        PersonPub = ps.PersonID.ToString();
+                        flag = 1;
+                        break;
+                    }
+                }
+                if(flag==0)foreach (var ps in _context.Person)
                 {
                     if (ps.Name.ToUpper().Contains(SearchingStringPerson.ToUpper()))
                     {

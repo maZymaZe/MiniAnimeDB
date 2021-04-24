@@ -77,30 +77,53 @@ namespace MiniAnimeDB.Pages.person_character
             if (!String.IsNullOrEmpty(SearchingStringCha))
             {
                 CurrentFilterCha = SearchingStringCha;
+                int flag = 0;
                 foreach (var ch in _context.Character)
                 {
-                    if (ch.Name.ToUpper().Contains(SearchingStringCha.ToUpper()))
+                    if (ch.Name.ToUpper().Equals(SearchingStringCha.ToUpper()))
                     {
                         CurrentFilterCha = ch.Name;
                         ChaPub = ch.CharacterID.ToString();
+                        flag = 0;
                         break;
                     }
                 }
+                if (flag == 0)
+                    foreach (var ch in _context.Character)
+                    {
+                        if (ch.Name.ToUpper().Contains(SearchingStringCha.ToUpper()))
+                        {
+                            CurrentFilterCha = ch.Name;
+                            ChaPub = ch.CharacterID.ToString();
+                            break;
+                        }
+                    }
             }
             PerPub = "???";
             if (!String.IsNullOrEmpty(SearchingStringPer))
             {
                 CurrentFilterPer = SearchingStringPer;
+                int flag = 0;
                 foreach (var ps in _context.Person)
                 {
-                    if (ps.Name.ToUpper().Contains(SearchingStringPer.ToUpper()))
+                    if (ps.Name.ToUpper().Equals(SearchingStringPer.ToUpper()))
                     {
                         CurrentFilterPer = ps.Name;
                         PerPub = ps.PersonID.ToString();
+                        flag = 1;
                         break;
                     }
                 }
-
+                if (flag == 0)
+                    foreach (var ps in _context.Person)
+                    {
+                        if (ps.Name.ToUpper().Contains(SearchingStringPer.ToUpper()))
+                        {
+                            CurrentFilterPer = ps.Name;
+                            PerPub = ps.PersonID.ToString();
+                            break;
+                        }
+                    }
             }
             return Page();
         }
