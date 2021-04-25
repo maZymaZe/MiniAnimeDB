@@ -14,7 +14,16 @@
     <div class="form-actions no-color">
         <p>
             Find Tags:
-            <input type="text" name="SearchingString" value="@Model.CurrentFilter" />
+            <input type="text" name="SearchingString" value="@Model.CurrentFilter" list="tgdl"/>
+            <datalist id="tgdl">
+                @if (ViewBag.TagAs != null)
+                {
+                    @foreach (var ta in ViewBag.TagAs)
+                    {
+                        <option value=@ta.Tag></option>
+                    }
+                }
+            </datalist>
             <input type="submit" value="Search" class="btn btn-primary" /> |
             <a asp-page="./Index">Back to full List</a>
         </p>

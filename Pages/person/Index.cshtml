@@ -14,7 +14,16 @@
     <div class="form-actions no-color">
         <p>
             Find by name:
-            <input type="text" name="SearchingString" value="@Model.CurrentFilter" />
+            <input type="text" name="SearchingString" value="@Model.CurrentFilter" list="psdl"/>
+            <datalist id="psdl">
+                @if (ViewBag.Persons != null)
+                {
+                    @foreach (var ps in ViewBag.Persons)
+                    {
+                        <option value=@ps.Name></option>
+                    }
+                }
+            </datalist>
             <input type="submit" value="Search" class="btn btn-primary" /> |
             <a asp-page="./Index">Back to full List</a>
         </p>

@@ -28,6 +28,7 @@ namespace MiniAnimeDB.Pages.person
 
         public async Task OnGetAsync(string currentFilter, string searchingString, int? pageIndex)
         {
+            ViewData["Persons"] = new List<Person>(_context.Person);
             if (searchingString != null)
             {
                 pageIndex = 1;

@@ -14,7 +14,16 @@
     <div class="form-actions no-color">
         <p>
             Find by Tytle:
-            <input type="text" name="SearchingString" value="@Model.CurrentFilter" />
+            <input type="text" name="SearchingString" value="@Model.CurrentFilter" list="andl"/>
+            <datalist id="andl">
+                @if (ViewBag.Anis != null)
+                {
+                    @foreach (var an in ViewBag.Anis)
+                    {
+                        <option value=@an.Title></option>
+                    }
+                }
+            </datalist>
             <input type="submit" value="Search" class="btn btn-primary" /> |
             <a asp-page="./Index">Back to full List</a>
         </p>

@@ -36,6 +36,7 @@ namespace MiniAnimeDB.Pages.anime
         
         public async Task OnGetAsync(string sortOrder,string currentFilter,string searchingString,int? pageIndex)
         {
+            ViewData["Anis"] = new List<Anime>(_context.Anime);
             CurrentSort = sortOrder;
             TitleSort = String.IsNullOrEmpty(sortOrder) ? "title_asc" : "";
             if (sortOrder == "aired_desc")

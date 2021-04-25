@@ -28,6 +28,7 @@ namespace MiniAnimeDB.Pages.tagA
 
         public async Task OnGetAsync(string currentFilter, string searchingString, int? pageIndex)
         {
+            ViewData["TagAs"] = new List<TagA>(_context.TagA);
             if (searchingString != null)
             {
                 pageIndex = 1;
